@@ -18,7 +18,7 @@ public class KillerAI : MonoBehaviour
     public Transform player;
     public Transform killeros;
     public Transform bod;
-
+    public Camera playerCamera;
 
     public LayerMask whatGround, whatPlayer;
 
@@ -46,6 +46,7 @@ public class KillerAI : MonoBehaviour
         player = GameObject.Find("PlayerObj").transform;
         killeros = GameObject.Find("Capsule").transform;
         killer = GetComponent<NavMeshAgent>();
+        playerCamera = Camera.main;
     }
     private void Start()
     {
@@ -53,6 +54,9 @@ public class KillerAI : MonoBehaviour
     }
     private void Update()
     {
+        bool isPlayerLooking = IsPlayerLookingAtEnemy();
+        bool batteryIsOff = GetBatteryStatus();
+        bool batteryIsOn = GetBatteryStatus();
         playerInSight = Physics.CheckSphere(transform.position, sightRange, whatPlayer);
         playerInAttack = Physics.CheckSphere(transform.position, attackRange, whatPlayer);
 
@@ -69,7 +73,33 @@ public class KillerAI : MonoBehaviour
         {
             AttackingPlayer();
         }
+        if (isPlayerLooking && !batteryIsOff)
+        {
+            killer.speed = 2f;
+        }
+        else
+        {
+            killer.speed = 8f;
+        }
+    }
 
+    private bool IsPlayerLookingAtEnemy()
+    {
+        Vector3 toEnemy = transform.position - playerCamera.transform.position;
+        float angle = Vector3.Angle(playerCamera.transform.forward, toEnemy);
+
+        return angle < playerCamera.fieldOfView / 2f;
+    }
+    private bool GetBatteryStatus()
+    {
+        Battery batteryScript = GameObject.Find("TestLidlBattery").GetComponent<Battery>();
+
+        if (batteryScript != null)
+        {
+            return batteryScript.batteryIsOff;
+        }
+
+        return false; 
     }
 
     private void LookingForPlayer()
@@ -106,7 +136,6 @@ public class KillerAI : MonoBehaviour
         //bod.position = walkingPoint;
 
 
-        //checking if walking point is on map
         if(Physics.Raycast(walkingPoint, -transform.up, 2f, whatGround) && killer.CalculatePath(walkingPoint, path))
         {
             killer.SetPath(path);
@@ -127,7 +156,7 @@ public class KillerAI : MonoBehaviour
 
             walkingPointSet = false;
             walkingPoint = pos;
-            
+
             killer.speed = 5f;
             killer.SetPath(path);
         }
@@ -135,7 +164,7 @@ public class KillerAI : MonoBehaviour
         {
             LookingForPlayer();
         }
-        
+
     }
 
     private void AttackingPlayer()
@@ -159,6 +188,8 @@ public class KillerAI : MonoBehaviour
     {
         attacking = false;
     }
+
+
     //private void JumpScara()
     //{
     //    StartCoroutine(DelayedRespawn());
