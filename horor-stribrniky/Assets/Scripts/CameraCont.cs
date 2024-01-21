@@ -17,8 +17,10 @@ void OnTriggerStay(Collider other)
             {
                 PlayerMovement player = GameObject.Find("PlayerC").GetComponent<PlayerMovement>();
                 CameraScript playerCam = GameObject.Find("PlayerCam").GetComponent<CameraScript>();
+                Battery batteryScript = GameObject.Find("BatteryO").GetComponent<Battery>();
                 playerCam.canMoveCam = false;
                 player.canMove = false;
+                batteryScript.canHaveLight = false;
                 playerUI.SetActive(false);
                 cameraObj.SetActive(true);
                 cameraUI.SetActive(true);
@@ -28,11 +30,13 @@ void OnTriggerStay(Collider other)
             {
                 PlayerMovement player = GameObject.Find("PlayerC").GetComponent<PlayerMovement>();
                 CameraScript playerCam = GameObject.Find("PlayerCam").GetComponent<CameraScript>();
+                Battery batteryScript = GameObject.Find("BatteryO").GetComponent<Battery>();
                 cameraUI.SetActive(false);
                 cameraObj.SetActive(false);
                 playerUI.SetActive(true);
                 player.canMove = true;
                 playerCam.canMoveCam =true;
+                batteryScript.canHaveLight = true;
                 isOnCam = false;
             }
     }

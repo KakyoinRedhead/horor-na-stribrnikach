@@ -22,6 +22,7 @@ public class Battery : MonoBehaviour
     private Color myGreen = new Color(0.102f, 0.925f, 0.196f);
     private Color myOrange = new Color(1f, 0.5f, 0f);
     public int batteryInvCount = 0;
+    public bool canHaveLight = true;
 
     private void Start()
     {
@@ -30,6 +31,7 @@ public class Battery : MonoBehaviour
     private void Update()
     {
         Checks();
+        LightOnCameras();
     }
     private void TurnOnAndOff()
     {
@@ -118,6 +120,14 @@ public class Battery : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) && haveBattery == true)
         {
             TurnOnAndOff();
+        }
+    }
+    private void LightOnCameras() 
+    {
+        if (canHaveLight == false) 
+        {
+            lightB.SetActive(false);
+            batteryIsOff = true;
         }
     }
     private IEnumerator percentCount()
