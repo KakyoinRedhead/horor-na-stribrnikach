@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     bool grounded;
 
+    public bool canMove = true;
+
     public Transform orientation;
 
     float horizontalInput;
@@ -52,7 +54,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (canMove == true)
+        {
+            MovePlayer();
+        }
     }
 
     private void MyInput()
