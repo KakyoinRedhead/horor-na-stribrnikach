@@ -11,15 +11,16 @@ using UnityEngine.UI;
 public class Battery : MonoBehaviour
 {
     public float timing;
-    bool buttonPressOn = true;
+    private bool buttonPressOn = true;
     public GameObject lightB, batteryIcon;
     public Image batteryImageTop, batteryImageMidTop, batteryImageMid, batteryImageBottom;
     public bool batteryIsOff = true;
     public int bPercent;
-    public bool haveBattery = true;
+    private bool haveBattery = true;
     private Coroutine percentCountCoroutine;
     private Color myGreen = new Color(0.102f, 0.925f, 0.196f);
     private Color myOrange = new Color(1f, 0.5f, 0f);
+    public int batteryInvCount = 0;
 
     private void Update()
     {
@@ -27,21 +28,30 @@ public class Battery : MonoBehaviour
     }
     private void TurnOnAndOff()
     {
-        buttonPressOn = !buttonPressOn;
-        batteryIsOff = !batteryIsOff;
-        lightB.SetActive(!buttonPressOn);
+        if (batteryIsOff)
+        {
+            buttonPressOn = !buttonPressOn;
+            batteryIsOff = !batteryIsOff;
+            lightB.SetActive(true);
+        }
+        else if (!batteryIsOff) 
+        {
+            buttonPressOn = !buttonPressOn;
+            batteryIsOff = !batteryIsOff;
+            lightB.SetActive(false);
+        }
     }
     private void Checks()
     {
-        if (bPercent > 0 && batteryIsOff == false && percentCountCoroutine == null) 
+        if (bPercent > 0 && batteryIsOff == false && percentCountCoroutine == null)
         {
             percentCountCoroutine = StartCoroutine(percentCount());
             haveBattery = true;
         }
-        else if(bPercent <= 0) 
+        else if (bPercent <= 0 && batteryInvCount <= 0)
         {
             haveBattery = false;
-            lightB.SetActive(false); 
+            lightB.SetActive(false);
             batteryIsOff = true;
 
             if (percentCountCoroutine != null)
@@ -49,6 +59,12 @@ public class Battery : MonoBehaviour
                 StopCoroutine(percentCountCoroutine);
                 percentCountCoroutine = null;
             }
+        }
+        else if (bPercent <= 0 && batteryInvCount >0)
+        {
+            batteryInvCount -= 1;
+            bPercent += 100; 
+            haveBattery = true;
         }
         BatteryPercentCheck();
 

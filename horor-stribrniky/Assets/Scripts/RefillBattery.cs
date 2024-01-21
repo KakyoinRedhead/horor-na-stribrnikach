@@ -21,7 +21,10 @@ public class RefillBattery : MonoBehaviour
 
                 if (batteryScript != null)
                 {
-                    batteryScript.bPercent = 100;
+                    if (batteryScript.batteryInvCount < 2)
+                    {
+                        batteryScript.batteryInvCount += 1;
+                    }
                 }
             }
         }
