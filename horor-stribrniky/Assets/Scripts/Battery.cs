@@ -14,6 +14,7 @@ public class Battery : MonoBehaviour
     private bool buttonPressOn = true;
     public GameObject lightB, batteryIcon;
     public Image batteryImageTop, batteryImageMidTop, batteryImageMid, batteryImageBottom;
+    public TextMeshProUGUI batteriesCountText;
     public bool batteryIsOff = true;
     public int bPercent;
     private bool haveBattery = true;
@@ -22,6 +23,10 @@ public class Battery : MonoBehaviour
     private Color myOrange = new Color(1f, 0.5f, 0f);
     public int batteryInvCount = 0;
 
+    private void Start()
+    {
+        batteriesCountText.text = "0";
+    }
     private void Update()
     {
         Checks();
@@ -66,6 +71,7 @@ public class Battery : MonoBehaviour
             bPercent += 100; 
             haveBattery = true;
         }
+        batteriesCountText.text = batteryInvCount.ToString();
         BatteryPercentCheck();
 
     }

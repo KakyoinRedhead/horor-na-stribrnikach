@@ -109,11 +109,6 @@ public class KillerAI : MonoBehaviour
             SearchWalkPoint();
         }
 
-        /*if (walkingPointSet)
-        {
-            killer.SetDestination(walkingPoint);
-        }*/
-
         Vector3 walkingPointDistance = transform.position - walkingPoint;
 
         if(walkingPointDistance.magnitude < 1f || path == null || path.status != NavMeshPathStatus.PathComplete)
@@ -132,8 +127,6 @@ public class KillerAI : MonoBehaviour
         walkingPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
         path = new NavMeshPath();
-
-        //bod.position = walkingPoint;
 
 
         if(Physics.Raycast(walkingPoint, -transform.up, 2f, whatGround) && killer.CalculatePath(walkingPoint, path))
@@ -203,18 +196,4 @@ public class KillerAI : MonoBehaviour
     //    }
     //}
 
-    //IEnumerator DelayedRespawn()
-    //{
-    //    yield return new WaitForSeconds(clip.length / 2);
-    //    blackscreen.enabled = true;
-    //    source.Stop();
-    //    jumpscar.SetActive(false);
-    //    StartCoroutine(Respawn());
-    //}
-    //IEnumerator Respawn()
-    //{
-    //    yield return new WaitForSeconds(1);
-    //    player.position = new Vector3(-11, 0.059f, -267.3f);
-    //    blackscreen.enabled = false;
-    //}
 }
