@@ -92,7 +92,7 @@ public class KillerAI : MonoBehaviour
     }
     private bool GetBatteryStatus()
     {
-        Battery batteryScript = GameObject.Find("TestLidlBattery").GetComponent<Battery>();
+        Battery batteryScript = GameObject.Find("BatteryO").GetComponent<Battery>();
 
         if (batteryScript != null)
         {
