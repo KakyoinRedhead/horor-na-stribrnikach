@@ -41,12 +41,15 @@ public class KillerAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSight, playerInAttack;
 
+    private float timingSave;
     private void Awake()
     {
         player = GameObject.Find("PlayerObj").transform;
-        killeros = GameObject.Find("Killer").transform;
+        killeros = GameObject.Find("KillerUhKAPSLE").transform;
         killer = GetComponent<NavMeshAgent>();
         playerCamera = Camera.main;
+        Battery batteryScript = GameObject.Find("BatteryO").GetComponent<Battery>();
+        timingSave = batteryScript.timing;
     }
     private void Start()
     {
@@ -79,15 +82,20 @@ public class KillerAI : MonoBehaviour
         }
         else
         {
+            Battery batteryScript = GameObject.Find("BatteryO").GetComponent<Battery>();
+            batteryScript.timing = timingSave;
             killer.speed = 8f;
+
         }
     }
 
     private bool IsPlayerLookingAtEnemy()
     {
+        Battery batteryScript = GameObject.Find("BatteryO").GetComponent<Battery>();
+
         Vector3 toEnemy = transform.position - playerCamera.transform.position;
         float angle = Vector3.Angle(playerCamera.transform.forward, toEnemy);
-
+        batteryScript.timing = 0.01f;
         return angle < playerCamera.fieldOfView / 2f;
     }
     private bool GetBatteryStatus()
