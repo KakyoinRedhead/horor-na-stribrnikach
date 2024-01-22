@@ -69,7 +69,7 @@ public class AchivementsScript : MonoBehaviour
     }
     private void ChangeSceneAfterDead()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("DeadMenu");
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
     }

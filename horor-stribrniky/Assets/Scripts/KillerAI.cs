@@ -53,7 +53,6 @@ public class KillerAI : MonoBehaviour
     }
     private void Start()
     {
-        //blackscreen.enabled = false;
     }
     private void Update()
     {
@@ -175,8 +174,6 @@ public class KillerAI : MonoBehaviour
         transform.LookAt(player);
 
         //die
-        //Application.Quit();
-        //JumpScara();
 
         if (!attacking)
         {

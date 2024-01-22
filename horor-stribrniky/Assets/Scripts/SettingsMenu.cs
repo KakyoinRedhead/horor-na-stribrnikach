@@ -29,7 +29,6 @@ public class SettingsMenu : MonoBehaviour
 
     void Update()
     {
-        //number under every slider to tell for example how much fps it is
         sliderValue.text = fpsSlider.value.ToString();
         volumeValue.text = ((int)(volumeSlider.value*100)).ToString() + "%";
 
@@ -40,14 +39,12 @@ public class SettingsMenu : MonoBehaviour
         }
     }
 
-    //changing fps with fps slider value
     public void SetFps()
     {
         target = (int)fpsSlider.value;
         Application.targetFrameRate = target;
     }
 
-    //turning on/off VSync
     public void SetVSyncOn()
     {
         if (vSync.isOn)
@@ -60,7 +57,6 @@ public class SettingsMenu : MonoBehaviour
         }
     }
 
-    //same as SetFps but with volume
     public void SetVolume()
     {
         audioSource.volume = volumeSlider.value;

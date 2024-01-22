@@ -17,7 +17,6 @@ public class ResolutionMenu : MonoBehaviour
     [System.Obsolete]
     void Start()
     {
-        //list for the resolutions
         resolutions = Screen.resolutions;
         filteredResolutions = new List<Resolution>();
 
@@ -26,7 +25,6 @@ public class ResolutionMenu : MonoBehaviour
 
         for (int i = 0; i < resolutions.Length; i++)
         {
-            //if (resolutions[i].refreshRate == currentRefreshRate)
             {
                 filteredResolutions.Add(resolutions[i]);
             }
@@ -35,10 +33,8 @@ public class ResolutionMenu : MonoBehaviour
         for (int i = 0; i < filteredResolutions.Count; i++)
         {
 
-            //resolutions for the dropdown to choose from
             string resolutionOption = filteredResolutions[i].width + "x" + filteredResolutions[i].height + " " + filteredResolutions[i].refreshRate + "Hz";
             options.Add(resolutionOption);
-            //right resolution for ur monitor !!important when its fucked!!
             if (filteredResolutions[i].width == Screen.width && filteredResolutions[i].height == Screen.height)
             {
                 currentResolutionIndex = i;
@@ -51,7 +47,6 @@ public class ResolutionMenu : MonoBehaviour
 
     }
 
-    //setting resolution
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = filteredResolutions[resolutionIndex];
