@@ -6,6 +6,7 @@ public class Door : MonoBehaviour
 {
     public GameObject doorClosed, doorOpened, intIcon;
     public bool doorClosedBool;
+    private bool eKeyPressed = false;
 
     void OnTriggerStay(Collider other)
     {
@@ -13,19 +14,10 @@ public class Door : MonoBehaviour
         {
             intIcon.SetActive(true);
 
-            if (Input.GetKey(KeyCode.E) && doorClosedBool == true)
+            if (Input.GetKeyDown(KeyCode.E) && !eKeyPressed)
             {
-                intIcon.SetActive(false);
-                doorClosed.SetActive(false);
-                doorOpened.SetActive(true);
-                doorClosedBool = false;
-            }
-            else if (Input.GetKey(KeyCode.E) && doorClosedBool == false)
-            {
-                intIcon.SetActive(false);
-                doorClosed.SetActive(true);
-                doorOpened.SetActive(false);
-                doorClosedBool = true;
+                eKeyPressed = true; 
+                ToggleDoor();
             }
         }
     }
@@ -35,6 +27,33 @@ public class Door : MonoBehaviour
         if (other.CompareTag("MainCamera"))
         {
             intIcon.SetActive(false);
+            eKeyPressed = false; 
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            eKeyPressed = false;
+        }
+    }
+
+    void ToggleDoor()
+    {
+        if (doorClosedBool)
+        {
+            intIcon.SetActive(false);
+            doorClosed.SetActive(false);
+            doorOpened.SetActive(true);
+            doorClosedBool = false;
+        }
+        else
+        {
+            intIcon.SetActive(false);
+            doorClosed.SetActive(true);
+            doorOpened.SetActive(false);
+            doorClosedBool = true;
         }
     }
 }

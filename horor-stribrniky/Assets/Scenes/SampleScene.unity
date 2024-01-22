@@ -276,12 +276,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561b4bf00890f6b4ebbc73680d07ec60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
-  groundDrag: 5
-  airMultiplier: 0.4
+  moveSpeed: 13
+  groundDrag: 10
+  airMultiplier: 0
   walkSpeed: 0
   sprintSpeed: 0
-  jumpKey: 32
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
@@ -2040,7 +2039,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 667152266}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d660c5ddb37671b4dbb1d7790175ed22, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -3025,7 +3024,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &889086205
 Transform:
   m_ObjectHideFlags: 0
@@ -3414,7 +3413,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024301446}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d660c5ddb37671b4dbb1d7790175ed22, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4798,7 +4797,7 @@ GameObject:
   - component: {fileID: 1469224450}
   - component: {fileID: 1469224449}
   - component: {fileID: 1469224448}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EEEHH
   m_TagString: Untagged
   m_Icon: {fileID: 0}
