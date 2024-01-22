@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraCont : MonoBehaviour
 {
-    public GameObject intIcon, terminal, cameraObj, cameraUI, playerCamera, playerUI;
+    public GameObject intIcon, terminal, cameraObj, cameraUI, playerCamera, playerUI, viewText;
     private bool isOnCam = false;
 
 void OnTriggerStay(Collider other)
@@ -12,6 +12,7 @@ void OnTriggerStay(Collider other)
         if (other.CompareTag("MainCamera"))
         {
             intIcon.SetActive(true);
+            viewText.SetActive(true);
 
             if (Input.GetKey(KeyCode.E) && isOnCam == false)
             {
@@ -47,6 +48,7 @@ void OnTriggerStay(Collider other)
         if (other.CompareTag("MainCamera"))
         {
             intIcon.SetActive(false);
+            viewText.SetActive(false);
         }
     }
 }

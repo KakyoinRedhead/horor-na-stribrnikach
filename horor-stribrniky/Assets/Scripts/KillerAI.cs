@@ -45,7 +45,7 @@ public class KillerAI : MonoBehaviour
     private void Awake()
     {
         player = GameObject.Find("PlayerObj").transform;
-        killeros = GameObject.Find("KillerUhKAPSLE").transform;
+        killeros = GameObject.Find("Killer").transform;
         killer = GetComponent<NavMeshAgent>();
         playerCamera = Camera.main;
         Battery batteryScript = GameObject.Find("BatteryO").GetComponent<Battery>();

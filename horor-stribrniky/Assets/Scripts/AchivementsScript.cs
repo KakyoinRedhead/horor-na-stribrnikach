@@ -70,6 +70,8 @@ public class AchivementsScript : MonoBehaviour
     private void ChangeSceneAfterDead()
     {
         SceneManager.LoadScene("MainMenu");
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     bool IsPlayerTouchingGround()
