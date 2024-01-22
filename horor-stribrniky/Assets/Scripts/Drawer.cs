@@ -6,35 +6,49 @@ public class Drawer : MonoBehaviour
 {
     public GameObject drawerClosed, drawerOpened, intIcon;
     public bool drawerClosedBool;
+    private bool eKeyPressed = false;
 
-    void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("MainCamera"))
         {
             intIcon.SetActive(true);
 
-            if (Input.GetKey(KeyCode.E) && drawerClosedBool == true)
+            if (Input.GetKey(KeyCode.E) && !eKeyPressed)
             {
-                intIcon.SetActive(false);
-                drawerClosed.SetActive(false);
-                drawerOpened.SetActive(true);
-                drawerClosedBool = false;
-            }
-            else if (Input.GetKey(KeyCode.E) && drawerClosedBool == false)
-            {
-                intIcon.SetActive(false);
-                drawerClosed.SetActive(true);
-                drawerOpened.SetActive(false);
-                drawerClosedBool = true;
+                eKeyPressed = true;
+                ToggleDrawer();
+                StartCoroutine(ResetEKeyPressed());
             }
         }
     }
-
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("MainCamera"))
         {
             intIcon.SetActive(false);
         }
+    }
+    private void ToggleDrawer()
+    {
+        if (drawerClosedBool)
+        {
+            intIcon.SetActive(false);
+            drawerClosed.SetActive(false);
+            drawerOpened.SetActive(true);
+            drawerClosedBool = false;
+        }
+        else
+        {
+            intIcon.SetActive(false);
+            drawerClosed.SetActive(true);
+            drawerOpened.SetActive(false);
+            drawerClosedBool = true;
+        }
+    }
+    private System.Collections.IEnumerator ResetEKeyPressed()
+    {
+        yield return new WaitForSeconds(0.5f);
+        eKeyPressed = false;
     }
 }

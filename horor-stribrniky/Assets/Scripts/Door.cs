@@ -8,38 +8,30 @@ public class Door : MonoBehaviour
     public bool doorClosedBool;
     private bool eKeyPressed = false;
 
-    void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("MainCamera"))
         {
             intIcon.SetActive(true);
 
-            if (Input.GetKeyDown(KeyCode.E) && !eKeyPressed)
+            if (Input.GetKey(KeyCode.E) && !eKeyPressed)
             {
-                eKeyPressed = true; 
+                eKeyPressed = true;
                 ToggleDoor();
+                StartCoroutine(ResetEKeyPressed());
             }
         }
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("MainCamera"))
         {
             intIcon.SetActive(false);
-            eKeyPressed = false; 
         }
     }
 
-    void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            eKeyPressed = false;
-        }
-    }
-
-    void ToggleDoor()
+    private void ToggleDoor()
     {
         if (doorClosedBool)
         {
@@ -55,5 +47,11 @@ public class Door : MonoBehaviour
             doorOpened.SetActive(false);
             doorClosedBool = true;
         }
+    }
+
+    private System.Collections.IEnumerator ResetEKeyPressed()
+    {
+        yield return new WaitForSeconds(0.5f);
+        eKeyPressed = false;
     }
 }
