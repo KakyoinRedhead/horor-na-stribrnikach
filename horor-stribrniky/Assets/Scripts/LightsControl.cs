@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LightsControl : MonoBehaviour
 {
-    public GameObject lights, intIcon;
-    public bool lightOff;
+    public GameObject lights, intIcon, switchText;
+    public bool lightOff = true;
     private bool interactionStarted = false;
 
     void OnTriggerStay(Collider other)
@@ -13,20 +13,12 @@ public class LightsControl : MonoBehaviour
         if (other.CompareTag("MainCamera"))
         {
             intIcon.SetActive(true);
+            switchText.SetActive(true);
 
-            if (Input.GetKey(KeyCode.E) && lightOff == true && !interactionStarted)
+            if (Input.GetKey(KeyCode.E) && !interactionStarted)
             {
                 interactionStarted = true;
-                intIcon.SetActive(false);
-                lights.SetActive(true);
-                lightOff = false;
-            }
-            else if (Input.GetKey(KeyCode.E) && lightOff == false && !interactionStarted)
-            {
-                interactionStarted = true;
-                intIcon.SetActive(false);
-                lights.SetActive(false);
-                lightOff = true;
+                StartCoroutine(InteractWithLights());
             }
         }
     }
@@ -36,7 +28,25 @@ public class LightsControl : MonoBehaviour
         if (other.CompareTag("MainCamera"))
         {
             intIcon.SetActive(false);
-            interactionStarted = false;
+            switchText.SetActive(false);
         }
+    }
+
+    private System.Collections.IEnumerator InteractWithLights()
+    {
+        if (lightOff)
+        {
+            lights.SetActive(true);
+            lightOff = false;
+        }
+        else
+        {
+            lights.SetActive(false);
+            lightOff = true;
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        interactionStarted = false;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public GameObject doorClosed, doorOpened, intIcon;
+    public GameObject doorClosed, doorOpened, intIcon, openUpText;
     public bool doorClosedBool;
     private bool eKeyPressed = false;
 
@@ -12,6 +12,7 @@ public class Door : MonoBehaviour
     {
         if (other.CompareTag("MainCamera"))
         {
+            openUpText.SetActive(true);
             intIcon.SetActive(true);
 
             if (Input.GetKey(KeyCode.E) && !eKeyPressed)
@@ -28,6 +29,8 @@ public class Door : MonoBehaviour
         if (other.CompareTag("MainCamera"))
         {
             intIcon.SetActive(false);
+            doorClosed.SetActive(false);
+            doorOpened.SetActive(false);
         }
     }
 

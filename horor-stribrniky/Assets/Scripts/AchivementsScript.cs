@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
 public class AchivementsScript : MonoBehaviour
 {
-    public GameObject achivementPopUp;
+    public GameObject achivementPopUp, DeadPanel;
     public Image achImage;
     public TextMeshProUGUI achText;
     public GameObject player;
@@ -54,12 +55,21 @@ public class AchivementsScript : MonoBehaviour
         } 
         else if (CheckForCollision() && achDeadShowed == false)
         {
-            achDeadShowed = true;
-            achImage.sprite = deadImage;
-            achText.text = "you are dead!";
-            ShowAchivement();
+            if(achDeadShowed == false) 
+            { 
+                achDeadShowed = true;
+                achImage.sprite = deadImage;
+                achText.text = "you are dead!";
+                ShowAchivement();
+            }
+            DeadPanel.SetActive(true);
+            Invoke("ChangeSceneAfterDead", 4f);
         }
 
+    }
+    private void ChangeSceneAfterDead()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     bool IsPlayerTouchingGround()
