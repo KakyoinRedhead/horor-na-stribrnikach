@@ -29,8 +29,7 @@ public class Door : MonoBehaviour
         if (other.CompareTag("MainCamera"))
         {
             intIcon.SetActive(false);
-            doorClosed.SetActive(false);
-            doorOpened.SetActive(false);
+            openUpText.SetActive(false);
         }
     }
 
