@@ -30,6 +30,10 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
+    public AudioClip walkSound;
+    public AudioSource audioSource;
+    public bool moving = false;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -69,10 +73,25 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         if (grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-
+            if (moveDirection.magnitude > 0 && !audioSource.isPlaying)
+            {
+                audioSource.clip = walkSound;
+                audioSource.Play();
+                moving = true;
+            }
+            else if (moveDirection.magnitude == 0 && audioSource.isPlaying)
+            {
+                audioSource.Stop();
+                moving = false;
+            }
+        }
         else if (!grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        }
+
     }
 
     private void SpeedControl()
